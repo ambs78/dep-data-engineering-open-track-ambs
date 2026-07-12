@@ -1,5 +1,3 @@
-<img width="65" height="361" alt="image" src="https://github.com/user-attachments/assets/811b93ce-ffde-44c9-bc80-662fc4f5732c" />My project will be all about a comprehensive data-driven analysis about the NBA's GOAT (Greatest of All Time)
-
 Using NBA Data available online, I will create a comprehensive dashboard that will allow users to analyze and compare overall career statistics between Michael Jordan, Kobe Bryant and Lebron James.
 The dashboard will be used compare all available stats including: FGM, FGA, FG_PCT ,FG3M, FG3A, FG3_PCT, FTM, FTA, FT_PCT, OREB, DREB, REB, AST, STL, BLK ,TOV, PF and PTS.
 
