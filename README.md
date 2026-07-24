@@ -6,18 +6,28 @@ The dashboard will be used compare all available stats including: FGM, FGA, FG_P
 
 **Primary Source**
 NBA API (nba_api.stats.endpoints.playergamelog)
+
 URL: https://github.com/swar/nba_api
+
 Format: JSON / Python API endpoint (pandas DataFrame response)
+
 Coverage: Individual game-by-game statistics for Michael Jordan, Kobe Bryant, and LeBron James across their entire regular season and playoff careers.
+
 Why it fits the problem: Provides official, granular, real-time accessible game log data directly from NBA Stats, enabling precise calculations for career and seasonal statistical comparisons.
+
 Known limitations: Rate limits and occasional connection timeouts when querying the official NBA API endpoints; requires error handling and request delays.
 
 **Fallback Source**
 Kaggle NBA Dataset (Michael Jordan, Kobe Bryant, and LeBron James Stats)
+
 URL: https://www.kaggle.com/datasets/xvivancos/michael-jordan-kobe-bryant-and-lebron-james-stats
+
 Format: CSV
+
 Coverage: Historical career game logs and statistics for Michael Jordan, Kobe Bryant, and LeBron James.
+
 Why it fits the problem: Serves as a reliable offline backup containing pre-extracted game log data in case the live nba_api endpoint experiences downtime or rate-limiting issues.
+
 Known limitations: Static dataset that is not automatically updated with current-season games or live updates.
 
 **Dashboard Sections**
