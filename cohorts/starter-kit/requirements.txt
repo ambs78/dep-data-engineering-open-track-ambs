@@ -4,3 +4,9 @@
 # requests==2.32.3
 # matplotlib==3.9.0
 # scikit-learn==1.5.0
+
+
+Raw Data Files Under data/processed/ folder
+kobe_bryant_game_logs.csv
+lebron_james_game_logs.csv
+michael_jordan_game_logs.csv
