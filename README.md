@@ -1,11 +1,12 @@
-Markdown
 # NBA GOAT Analysis & Interactive Dashboard
 
 ## Problem Statement
+
 The debate over who is the NBA's GOAT (Greatest Of All Time) is often subjective and tends to focus on only a few selective statistics.
 
 ## Objective
-This project creates a comprehensive analysis and interactive dashboard to compare career statistics and help determine the NBA GOAT. 
+
+This project creates a comprehensive analysis and interactive dashboard to compare career statistics and help determine the NBA GOAT.
 
 Using data extracted from official sources, the dashboard allows users to analyze and compare granular career stats between **Michael Jordan**, **Kobe Bryant**, and **LeBron James**.
 
@@ -17,6 +18,7 @@ The dashboard includes key metrics across regular season and playoff careers, in
 ## Data Sources
 
 ### Primary Source: NBA API
+
 * **Endpoint:** `nba_api.stats.endpoints.playergamelog`
 * **URL:** [https://github.com/swar/nba_api](https://github.com/swar/nba_api)
 * **Format:** JSON / Python API endpoint (pandas DataFrame response)
@@ -25,6 +27,7 @@ The dashboard includes key metrics across regular season and playoff careers, in
 * **Known limitations:** Rate limits and occasional connection timeouts requiring request delays and error handling.
 
 ### Fallback Source: Kaggle NBA Dataset
+
 * **Dataset:** Michael Jordan, Kobe Bryant, and LeBron James Stats
 * **URL:** [https://www.kaggle.com/datasets/xvivancos/michael-jordan-kobe-bryant-and-lebron-james-stats](https://www.kaggle.com/datasets/xvivancos/michael-jordan-kobe-bryant-and-lebron-james-stats)
 * **Format:** CSV
@@ -46,49 +49,59 @@ The dashboard includes key metrics across regular season and playoff careers, in
 Follow these steps to set up your environment, install the required packages, and run the data ingestion pipeline.
 
 ### Prerequisites
+
 * Python 3.8 or higher installed on your system.
 * Git installed on your system.
 
 ### Step 1: Clone and Navigate to the Repository
+
 Open your terminal (Command Prompt, PowerShell, or Terminal) and clone the repository, then navigate into your local project directory:
 
 ```bash
-git clone [https://github.com/ambs78/dep-data-engineering-open-track-ambs.git](https://github.com/ambs78/dep-data-engineering-open-track-ambs.git)
-cd dep-data-engineering-open-track-ambs```
-
+git clone https://github.com/ambs78/dep-data-engineering-open-track-ambs.git
+cd dep-data-engineering-open-track-ambs
+```
 
 ### Step 2: Create and Activate a Virtual Environment
-Isolate your Python dependencies by creating a virtual environment named .venv:
+
+Isolate your Python dependencies by creating a virtual environment named `.venv`:
 
 ```bash
 python -m venv .venv
+```
 
 Activate the environment based on your operating system:
 
-```DOS
+**Windows (Command Prompt):**
+```bat
 .venv\Scripts\activate.bat
+```
 
-
+**macOS / Linux:**
 ```bash
-source .venv/bin/activate```
-
+source .venv/bin/activate
+```
 
 ### Step 3: Install Required Modules
-Install all required Python packages from the requirements.txt file into your virtual environment:
+
+Install all required Python packages from the `requirements.txt` file into your virtual environment:
 
 ```bash
-pip install -r requirements.txt```
-
+pip install -r requirements.txt
+```
 
 ### Step 4: Export Python Dependencies (Optional Maintenance)
-If you install new packages while developing, you can freeze and update the requirements.txt file by running:
+
+If you install new packages while developing, you can freeze and update the `requirements.txt` file by running:
 
 ```bash
-pip freeze > requirements.txt```
-
+pip freeze > requirements.txt
+```
 
 ### Step 5: Run Data Ingestion
-Execute the ingest.py script located in the scripts/ folder to fetch and process player statistics:
 
-```DOS
-python scripts\ingest.py```
+Execute the `ingest.py` script located in the `scripts/` folder to fetch and process player statistics:
+
+```bash
+python scripts/ingest.py
+```
