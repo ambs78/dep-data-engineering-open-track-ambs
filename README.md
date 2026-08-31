@@ -1,45 +1,194 @@
-**Problem Statement**: The debate between who is the NBA's GOAT (Greatest Of All Time) is most of the time subjective, and tends to focus on only a few specific stats.
+**# NBA GOAT Analysis \& Interactive Dashboard**
 
 
-**Objective**: I want to create an analysis and dashboard that will include comprehensive data to settle the debate and determine the NBA GOAT.
+
+**## Problem Statement**
+
+**The debate over who is the NBA's GOAT (Greatest Of All Time) is often subjective and tends to focus on only a few selective statistics.**
 
 
-Using NBA Data available online, I will create a comprehensive dashboard that will allow users to analyze and compare overall career statistics between Michael Jordan, Kobe Bryant and Lebron James.
-The dashboard will be used compare all available stats including: FGM, FGA, FG_PCT ,FG3M, FG3A, FG3_PCT, FTM, FTA, FT_PCT, OREB, DREB, REB, AST, STL, BLK ,TOV, PF and PTS.
+
+**## Objective**
+
+**This project creates a comprehensive analysis and interactive dashboard to compare career statistics and help determine the NBA GOAT.** 
 
 
-**Primary Source**
 
-_NBA API_: (nba_api.stats.endpoints.playergamelog)
-
-_URL_: https://github.com/swar/nba_api
-
-_Format_: JSON / Python API endpoint (pandas DataFrame response)
-
-_Coverage_: Individual game-by-game statistics for Michael Jordan, Kobe Bryant, and LeBron James across their entire regular season and playoff careers.
-
-_Why it fits the problem_: Provides official, granular, real-time accessible game log data directly from NBA Stats, enabling precise calculations for career and seasonal statistical comparisons.
-
-_Known limitations_: Rate limits and occasional connection timeouts when querying the official NBA API endpoints; requires error handling and request delays.
-
-**Fallback Source**
-
-_Kaggle NBA Dataset_ (Michael Jordan, Kobe Bryant, and LeBron James Stats)
-
-_URL_: https://www.kaggle.com/datasets/xvivancos/michael-jordan-kobe-bryant-and-lebron-james-stats
-
-_Format_: CSV
-
-_Coverage_: Historical career game logs and statistics for Michael Jordan, Kobe Bryant, and LeBron James.
-
-_Why it fits the problem_: Serves as a reliable offline backup containing pre-extracted game log data in case the live nba_api endpoint experiences downtime or rate-limiting issues.
-
-_Known limitations_: Static dataset that is not automatically updated with current-season games or live updates.
+**Using data extracted from official sources, the dashboard allows users to analyze and compare granular career stats between \*\*Michael Jordan\*\*, \*\*Kobe Bryant\*\*, and \*\*LeBron James\*\*.**
 
 
-**Dashboard Sections**
-1) GOAT Calculator -  will show all relevant stats, where the user can vary the weight of each stat/KPI and calculate the overall GOAT Rating to see who wins. The weight of each stat can be varied using a slider to set the value between 1-10, based on how the user thinks of the significance of the stat. This will allow the user to 'play' with the calculator, and see how changing the weight of the stat will impact the overall score in determining the winner.
-2) Stats Dashboard - a dashboard where the user can select a stat using a filter and show the trend for each player to compare their trend over their careers, with the x-axis as the season number of their career.
 
-My main audience will be basketball enthusiasts.
-The Philippines is very much interested in Basketball, and they will be a good audience to check my project.
+**The dashboard includes key metrics across regular season and playoff careers, including:**
+
+**`FGM`, `FGA`, `FG\_PCT`, `FG3M`, `FG3A`, `FG3\_PCT`, `FTM`, `FTA`, `FT\_PCT`, `OREB`, `DREB`, `REB`, `AST`, `STL`, `BLK`, `TOV`, `PF`, and `PTS`.**
+
+
+
+**---**
+
+
+
+**## Data Sources**
+
+
+
+**### Primary Source: NBA API**
+
+**\* \*\*Endpoint:\*\* `nba\_api.stats.endpoints.playergamelog`**
+
+**\* \*\*URL:\*\* \[https://github.com/swar/nba\_api](https://github.com/swar/nba\_api)**
+
+**\* \*\*Format:\*\* JSON / Python API endpoint (pandas DataFrame response)**
+
+**\* \*\*Coverage:\*\* Individual game-by-game statistics for Michael Jordan, Kobe Bryant, and LeBron James across their entire regular season and playoff careers.**
+
+**\* \*\*Why it fits:\*\* Provides official, granular game log data directly from NBA Stats, enabling precise statistical calculations.**
+
+**\* \*\*Known limitations:\*\* Rate limits and occasional connection timeouts requiring request delays and error handling.**
+
+
+
+**### Fallback Source: Kaggle NBA Dataset**
+
+**\* \*\*Dataset:\*\* Michael Jordan, Kobe Bryant, and LeBron James Stats**
+
+**\* \*\*URL:\*\* \[https://www.kaggle.com/datasets/xvivancos/michael-jordan-kobe-bryant-and-lebron-james-stats](https://www.kaggle.com/datasets/xvivancos/michael-jordan-kobe-bryant-and-lebron-james-stats)**
+
+**\* \*\*Format:\*\* CSV**
+
+**\* \*\*Coverage:\*\* Historical career game logs for all three players.**
+
+**\* \*\*Why it fits:\*\* Serves as a reliable offline backup if the live `nba\_api` endpoint experiences downtime or rate limits.**
+
+**\* \*\*Known limitations:\*\* Static dataset that is not automatically updated with live games.**
+
+
+
+**---**
+
+
+
+**## Dashboard Features**
+
+
+
+**1. \*\*GOAT Calculator:\*\* Allows users to assign weights (from 1 to 10) to each statistical KPI using interactive sliders. The calculator dynamically recalculates each player's custom overall score based on the user's weighting preference.**
+
+**2. \*\*Stats Dashboard:\*\* Enables users to select specific statistics and compare player trends side-by-side across their respective career seasons (using career season number on the X-axis).**
+
+
+
+**---**
+
+
+
+**## Getting Started \& Execution**
+
+
+
+**Follow these steps to set up your environment, install the required packages, and run the data ingestion pipeline.**
+
+
+
+**### Prerequisites**
+
+**\* Python 3.8 or higher installed on your system.**
+
+**\* Git installed on your system.**
+
+
+
+**### Step 1: Clone and Navigate to the Repository**
+
+**Open your terminal (Command Prompt, PowerShell, or Terminal) and clone the repository, then navigate into your local project directory:**
+
+
+
+**```bash**
+
+**git clone \[https://github.com/ambs78/dep-data-engineering-open-track-ambs.git](https://github.com/ambs78/dep-data-engineering-open-track-ambs.git)**
+
+**cd dep-data-engineering-open-track-ambs**
+
+
+
+
+
+**### Step 2: Create and Activate a Virtual Environment**
+
+**Isolate your Python dependencies by creating a virtual environment named .venv:**
+
+
+
+**```bash**
+
+**python -m venv .venv**
+
+
+
+**Activate the environment based on your operating system:**
+
+
+
+**Windows (Command Prompt):**
+
+
+
+**```DOS**
+
+**.venv\\Scripts\\activate.bat**
+
+
+
+
+
+**Windows (PowerShell):**
+
+
+
+**```PowerShell**
+
+**.venv\\Scripts\\Activate.ps1**
+
+
+
+
+
+**### Step 3: Install Required Modules**
+
+**Install all required Python packages from the requirements.txt file into your virtual environment:**
+
+
+
+**```bash**
+
+**pip install -r requirements.txt**
+
+
+
+
+
+**### Step 4: Export Python Dependencies (Optional Maintenance)**
+
+**If you install new packages while developing, you can freeze and update the requirements.txt file by running:**
+
+
+
+**```bash**
+
+**pip freeze > requirements.txt**
+
+
+
+
+
+**### Step 5: Run Data Ingestion**
+
+**Execute the ingest.py script located in the scripts/ folder to fetch and process player statistics:**
+
+
+
+**```DOS**
+
+**python scripts\\ingest.py**
+
