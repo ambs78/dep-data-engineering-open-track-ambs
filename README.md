@@ -54,7 +54,7 @@ Open your terminal (Command Prompt, PowerShell, or Terminal) and clone the repos
 
 ```bash
 git clone [https://github.com/ambs78/dep-data-engineering-open-track-ambs.git](https://github.com/ambs78/dep-data-engineering-open-track-ambs.git)
-cd dep-data-engineering-open-track-ambs
+cd dep-data-engineering-open-track-ambs```
 
 
 ### Step 2: Create and Activate a Virtual Environment
@@ -70,25 +70,25 @@ Activate the environment based on your operating system:
 
 
 ```bash
-source .venv/bin/activate
+source .venv/bin/activate```
 
 
 ### Step 3: Install Required Modules
 Install all required Python packages from the requirements.txt file into your virtual environment:
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements.txt```
 
 
 ### Step 4: Export Python Dependencies (Optional Maintenance)
 If you install new packages while developing, you can freeze and update the requirements.txt file by running:
 
 ```bash
-pip freeze > requirements.txt
+pip freeze > requirements.txt```
 
 
 ### Step 5: Run Data Ingestion
 Execute the ingest.py script located in the scripts/ folder to fetch and process player statistics:
 
 ```DOS
-python scripts\ingest.py
+python scripts\ingest.py```
