@@ -108,8 +108,11 @@ python scripts/ingest.py
 
 ### Step 6: Transform the Data
 
-Execute the `transform.py` script located in the `processed/` folder to fetch and process player statistics:
+Execute the `transform.py` script located in the `data/processed/` folder to fetch and process player statistics.
+This will combine the data from the 3 players, ang get their career averages for `FGM`, `FGA`, `FG_PCT`, `FG3M`, `FG3A`, `FG3_PCT`, `FTM`, `FTA`, `FT_PCT`, `OREB`, `DREB`, `REB`, `AST`, `STL`, `BLK`, `TOV`, `PF`, and `PTS`.
+
+This will be the data that will be used in creating the Main GOAT Dashboard and Calculator.
 
 ```bash
-python scripts/ingest.py
+python data/processed/transform.py
 ```
