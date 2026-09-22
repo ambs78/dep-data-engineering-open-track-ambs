@@ -2,8 +2,10 @@ from pathlib import Path
 import duckdb
 import pandas as pd
 
-# Get the directory where THIS script is currently saved
-script_dir = Path(__file__).parent.resolve()
+# Directory path resolution
+script_dir = Path(__file__).parent.resolve()          # scripts/
+project_root = script_dir.parent                      # repository root
+processed_data_dir = project_root / "data" / "processed" # data/processed/
 
 files = [
     "kobe_bryant_game_logs.csv",
@@ -11,13 +13,14 @@ files = [
     "michael_jordan_game_logs.csv",
 ]
 
-# Output path definitions
-output_file_season = script_dir / "game_logs_summary_per_season.csv"
-output_file_career = script_dir / "game_logs_summary_career_overall.csv"
+# Output path definitions (pointing to data/processed/)
+output_file_season = processed_data_dir / "game_logs_summary_per_season.csv"
+output_file_career = processed_data_dir / "game_logs_summary_career_overall.csv"
 
 dfs = []
 for filename in files:
-    file_path = script_dir / filename
+    # Explicitly check data/processed/ for the CSV files
+    file_path = processed_data_dir / filename
 
     if file_path.exists():
         df = pd.read_csv(file_path)
