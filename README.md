@@ -105,3 +105,11 @@ Execute the `ingest.py` script located in the `scripts/` folder to fetch and pro
 ```bash
 python scripts/ingest.py
 ```
+
+### Step 6: Transform the Data
+
+Execute the `transform.py` script located in the `processed/` folder to fetch and process player statistics:
+
+```bash
+python scripts/ingest.py
+```
