@@ -1,3 +1,4 @@
+import os
 import time
 import pandas as pd
 from nba_api.stats.endpoints import playergamelog
@@ -28,6 +29,10 @@ def generate_season_string(year):
     return f"{year}-{next_year}"
 
 def fetch_career_game_logs():
+    # Ensure the output directory structure \data\raw exists
+    output_dir = os.path.join("data", "raw")
+    os.makedirs(output_dir, exist_ok=True)
+    
     all_players_data = []
 
     for name, info in PLAYERS_META.items():
@@ -69,18 +74,19 @@ def fetch_career_game_logs():
             # Combine individual player's seasons
             player_master_df = pd.concat(player_games, ignore_index=True)
             
-            # Save individual copy for your backup
-            filename = f"{name.lower().replace(' ', '_')}_game_logs.csv"
+            # Save individual copy inside data/raw
+            filename = os.path.join(output_dir, f"{name.lower().replace(' ', '_')}_game_logs.csv")
             player_master_df.to_csv(filename, index=False)
             print(f"✔ Successfully saved {len(player_master_df)} rows to {filename}\n")
             
             all_players_data.append(player_master_df)
             
-    # Combine everyone into a single master file for easier side-by-side EDA
+    # Combine everyone into a single master file inside data/raw
     if all_players_data:
         master_df = pd.concat(all_players_data, ignore_index=True)
-        master_df.to_csv("goat_comparison_master_gamelogs.csv", index=False)
-        print("🎉 Master file 'goat_comparison_master_gamelogs.csv' generated perfectly!")
+        master_filepath = os.path.join(output_dir, "goat_comparison_master_gamelogs.csv")
+        master_df.to_csv(master_filepath, index=False)
+        print(f"🎉 Master file '{master_filepath}' generated perfectly!")
 
 if __name__ == "__main__":
     fetch_career_game_logs()

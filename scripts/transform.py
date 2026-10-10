@@ -5,6 +5,7 @@ import pandas as pd
 # Directory path resolution
 script_dir = Path(__file__).parent.resolve()          # scripts/
 project_root = script_dir.parent                      # repository root
+raw_data_dir = project_root / "data" / "raw"          # data/raw/
 processed_data_dir = project_root / "data" / "processed" # data/processed/
 
 files = [
@@ -19,8 +20,8 @@ output_file_career = processed_data_dir / "game_logs_summary_career_overall.csv"
 
 dfs = []
 for filename in files:
-    # Explicitly check data/processed/ for the CSV files
-    file_path = processed_data_dir / filename
+    # Explicitly check data/raw/ for the source CSV files
+    file_path = raw_data_dir / filename
 
     if file_path.exists():
         df = pd.read_csv(file_path)
@@ -95,7 +96,7 @@ if dfs:
 
     summary_season_df = duckdb.sql(sql_query_per_season).df()
 
-    # 3. Export the Season SQL summary result to CSV
+    # 3. Export the Season SQL summary result to CSV under processed directory
     summary_season_df.to_csv(output_file_season, index=False)
     print(f"\nSuccess! Aggregated Season summary saved to: {output_file_season}")
 
@@ -157,7 +158,7 @@ if dfs:
 
     summary_career_df = duckdb.sql(sql_query_career_overall).df()
 
-    # 5. Export the Career SQL summary result to CSV
+    # 5. Export the Career SQL summary result to CSV under processed directory
     summary_career_df.to_csv(output_file_career, index=False)
     print(f"Success! Aggregated Career summary saved to: {output_file_career}")
 
