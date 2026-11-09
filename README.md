@@ -129,6 +129,7 @@ JupyterLab opens in your default web browser (usually at `http://localhost:8888/
 
 * The notebook looks for the game-log CSVs in `../data/processed` and the accolades CSV in `../data/external`, so it works whether you open it from the `notebooks/` folder or from the repository root.
 * The packages it needs (`plotly`, `ipywidgets`, `jupyterlab`) are included in `requirements.txt` from Step 3.
+* The Final Verdict section runs a large simulation when you choose **Run All Cells**, so the full run takes roughly 20 to 40 seconds on a typical laptop.
 * The pinned `pandas==3.0.3` and `numpy==2.5.1` require a recent Python version. The notebook was tested with Python 3.12.
 * GitHub cannot render ipywidgets or Plotly JavaScript, so the sliders and charts only work in JupyterLab, Jupyter Notebook 7, VS Code, or GitHub Codespaces.
 
@@ -136,24 +137,15 @@ JupyterLab opens in your default web browser (usually at `http://localhost:8888/
 
 ## Interactive GOAT Dashboard (Jupyter Notebook)
 
-The notebook turns the processed data into a dark-mode, NBA-themed dashboard comparing **Michael Jordan**, **Kobe Bryant**, and **LeBron James**. It has two sections: a Trend Explorer and a GOAT Calculator.
+The notebook turns the processed data into a dark-mode, NBA-themed dashboard comparing **Michael Jordan**, **Kobe Bryant**, and **LeBron James**. It has three sections: a GOAT Calculator, a Trend Explorer, and a Final Verdict.
 
 | Section | Data source |
 |---|---|
-| Trend Explorer | `data/processed/game_logs_summary_per_season.csv` (title and MVP markers use `data/external/player_accolades.csv`) |
 | GOAT Calculator | `data/processed/game_logs_summary_career_overall.csv` and `data/external/player_accolades.csv` |
+| Trend Explorer | `data/processed/game_logs_summary_per_season.csv` (title and MVP markers use `data/external/player_accolades.csv`) |
+| Final Verdict | the same normalized scores as the GOAT Calculator (`game_logs_summary_career_overall.csv` and `player_accolades.csv`) |
 
-### Section 1: Trend Explorer
-
-Compare how each career evolved, season by season, for any metric.
-
-* **Metric dropdown:** 15 metrics, including points, True Shooting %, field goal %, 3-point %, free throw %, assists, rebounds, steals, blocks, turnovers, 3-point attempts, free-throw attempts, games played, and win %.
-* **Controls:** choose which players to show, switch the X-axis between career year (rookies line up at year 1) and calendar season, add a 3-season rolling average, and toggle the title (triangle) and MVP (circle) season markers.
-* **Chart conventions:** a star marks each player's best season for the chosen metric, hollow markers flag seasons with fewer than 30 games, and a broken line marks a calendar gap in the data (such as a retirement).
-* **The Scoreboard (right side):** an insights table that compares the players against each other on the chosen metric, written with a bit of attitude. It covers best single season, typical season, steadiness, glow-up or fade, a year-by-year bracket (same career year versus same career year), above-the-pack seasons, and championship mode (title seasons versus all other seasons). The headline names the winner of the most categories and awards a playful "belt" such as *Bucket Boss* or *Safe Hands Champion*.
-* **Live and data-driven:** the scoreboard recalculates whenever you change the metric or the selected players. It uses qualifying seasons only (30 or more games), and every number in it is computed from the data.
-
-### Section 2: GOAT Calculator
+### Section 1: GOAT Calculator
 
 Decide what "greatest" means to you by weighting 15 rows: 9 career stats and 6 accolades.
 
@@ -190,6 +182,28 @@ A player without an image shows their initials. Images are shown without a frame
 
 To add, remove, or swap rows (for example, use All-Star selections instead of Scoring Titles), edit the `CALC_ROWS` list in the GOAT Calculator cell of the notebook.
 
+### Section 2: Trend Explorer
+
+Compare how each career evolved, season by season, for any metric.
+
+* **Metric dropdown:** 15 metrics, including points, True Shooting %, field goal %, 3-point %, free throw %, assists, rebounds, steals, blocks, turnovers, 3-point attempts, free-throw attempts, games played, and win %.
+* **Controls:** choose which players to show, switch the X-axis between career year (rookies line up at year 1) and calendar season, add a 3-season rolling average, and toggle the title (triangle) and MVP (circle) season markers.
+* **Chart conventions:** a star marks each player's best season for the chosen metric, hollow markers flag seasons with fewer than 30 games, and a broken line marks a calendar gap in the data (such as a retirement).
+* **The Scoreboard (right side):** an insights table that compares the players against each other on the chosen metric, written with a bit of attitude. It covers best single season, typical season, steadiness, glow-up or fade, a year-by-year bracket (same career year versus same career year), above-the-pack seasons, and championship mode (title seasons versus all other seasons). The headline names the winner of the most categories and awards a playful "belt" such as *Bucket Boss* or *Safe Hands Champion*.
+* **Live and data-driven:** the scoreboard recalculates whenever you change the metric or the selected players. It uses qualifying seasons only (30 or more games), and every number in it is computed from the data.
+
+### Section 3: Final Verdict
+
+At the bottom of the notebook, the Final Verdict counts how many times each player is Rank #1 across every possible way of setting the 15 calculator sliders.
+
+* **The size of the problem:** 15 sliders with 10 settings each is 10^15 (1,000,000,000,000,000) possible combinations, which is too many to check one by one. The verdict combines three methods.
+* **Exact counts on coarse grids:** every combination in which each slider is set to one of a few levels is evaluated, with no sampling: Low / High (2^15 = 32,768 combinations), Low / Medium / High (3^15 = 14,348,907), and four levels of 1, 4, 7, and 10 (4^15 = 1,073,741,824).
+* **Full 1 to 10 scale:** 20 million random combinations are scored, and the shares are scaled up to the 10^15 total with a 95% confidence interval.
+* **Exact lock-out test:** a geometric check over all possible slider settings proves when a player cannot be Rank #1 under any setting.
+* **What it shows:** a headline verdict, a Rank #1 count table for every scenario, where each player finishes (Rank #1, #2, and #3), and what a winning slider setting looks like (the average slider settings in the combinations each player wins).
+* **Runs once:** it uses the same normalized scores as the calculator, so it does not change when you move a slider.
+* **Depends on the rows you choose:** the verdict reflects which 15 rows the calculator uses and how the accolades were counted, so editing `CALC_ROWS` or the accolades table changes it.
+
 ### Accolades Data (External)
 
 Championships, awards, and honors are not available in the game-log data, so they are stored in a separate, editable table:
@@ -207,6 +221,7 @@ Championships, awards, and honors are not available in the game-log data, so the
 * **Normalization:** each row is scaled 0 to 100 against the best of the three players, so results are relative, not absolute. This compresses near-ties (for example, free-throw %), so rows with small real gaps still look close.
 * **Weighting:** sliders from 1 to 10 become shares of the total weight, so the shares always add up to 100%. With equal weights, the 6 accolade rows make up 40% of the score, so lowering their sliders shows how much the ranking depends on accolades.
 * **Accolades are external:** counts come from the compiled table above, not from the game-log CSVs. Voting rules and eligibility have changed over time (for example, LeBron's 2026 All-NBA streak ended under the league's 65-game minimum), and counts such as Finals MVPs depend on teammates and opponents.
+* **Final Verdict:** counts are exact where every combination is evaluated (coarse grids of up to about 1 billion combinations), estimated from 20 million random combinations on the full 1 to 10 scale (with 95% confidence intervals), and a geometric test proves when a player cannot be Rank #1 under any setting. The result depends on the 15 rows used, including that 6 of them are accolades.
 * **Playful insights:** the Trend Explorer commentary is generated from the data using fixed templates. It is meant to be fun, not definitive.
 * **Not included:** advanced metrics (PER, WS, BPM) and player ages are not in the data and were not added.
 * **Small sample:** with only three players, every ranking is relative, and the GOAT score is a model of your own priorities rather than an objective truth.
