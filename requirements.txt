@@ -10,11 +10,6 @@ requests==2.34.2
 six==1.17.0
 tzdata==2026.2
 urllib3==2.7.0
-
-plotly>=6.1
 ipywidgets>=8.1
-anywidget>=0.9      # live in-place chart updates while dragging sliders (without it charts redraw, slower)
 jupyterlab>=4.0
-ipykernel>=6.29
-nbformat>=5.9
-kaleido>=1.0        # optional: only needed to export the PNG snapshots (also needs Chrome)
+plotly>=6.1
