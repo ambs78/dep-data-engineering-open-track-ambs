@@ -182,6 +182,11 @@ A player without an image shows their initials. Images are shown without a frame
 
 To add, remove, or swap rows (for example, use All-Star selections instead of Scoring Titles), edit the `CALC_ROWS` list in the GOAT Calculator cell of the notebook.
 
+<p align="center">
+  <img src="docs/images/goat-calculator.png" alt="GOAT Calculator with weight sliders, career, normalized and weighted scores, and GOAT ranking scorecards" width="900">
+</p>
+<p align="center"><em>GOAT Calculator: drag the sliders and the rankings update live.</em></p>
+
 ### Section 2: Trend Explorer
 
 Compare how each career evolved, season by season, for any metric.
@@ -192,6 +197,11 @@ Compare how each career evolved, season by season, for any metric.
 * **The Scoreboard (right side):** an insights table that compares the players against each other on the chosen metric, written with a bit of attitude. It covers best single season, typical season, steadiness, glow-up or fade, a year-by-year bracket (same career year versus same career year), above-the-pack seasons, and championship mode (title seasons versus all other seasons). The headline names the winner of the most categories and awards a playful "belt" such as *Bucket Boss* or *Safe Hands Champion*.
 * **Live and data-driven:** the scoreboard recalculates whenever you change the metric or the selected players. It uses qualifying seasons only (30 or more games), and every number in it is computed from the data.
 
+<p align="center">
+  <img src="docs/images/trend-explorer.png" alt="Trend Explorer chart with the head-to-head scoreboard on the right" width="900">
+</p>
+<p align="center"><em>Trend Explorer: pick a metric to compare the careers, with the scoreboard alongside.</em></p>
+
 ### Section 3: Final Verdict
 
 At the bottom of the notebook, the Final Verdict counts how many times each player is Rank #1 across every possible way of setting the 15 calculator sliders.
@@ -200,9 +210,14 @@ At the bottom of the notebook, the Final Verdict counts how many times each play
 * **Exact counts on coarse grids:** every combination in which each slider is set to one of a few levels is evaluated, with no sampling: Low / High (2^15 = 32,768 combinations), Low / Medium / High (3^15 = 14,348,907), and four levels of 1, 4, 7, and 10 (4^15 = 1,073,741,824).
 * **Full 1 to 10 scale:** 20 million random combinations are scored, and the shares are scaled up to the 10^15 total with a 95% confidence interval.
 * **Exact lock-out test:** a geometric check over all possible slider settings proves when a player cannot be Rank #1 under any setting.
-* **What it shows:** a headline verdict, a Rank #1 count table for every scenario, where each player finishes (Rank #1, #2, and #3), and what a winning slider setting looks like (the average slider settings in the combinations each player wins).
+* **What it shows:** a headline verdict and a table of Rank #1 counts for every scenario: exact counts for the three grids, plus the estimate for the full 1 to 10 scale.
 * **Runs once:** it uses the same normalized scores as the calculator, so it does not change when you move a slider.
 * **Depends on the rows you choose:** the verdict reflects which 15 rows the calculator uses and how the accolades were counted, so editing `CALC_ROWS` or the accolades table changes it.
+
+<p align="center">
+  <img src="docs/images/final-verdict.png" alt="Final Verdict showing how many times each player is Rank #1 across all weight combinations" width="900">
+</p>
+<p align="center"><em>Final Verdict: how many times each player is Rank #1 across every slider combination.</em></p>
 
 ### Accolades Data (External)
 
