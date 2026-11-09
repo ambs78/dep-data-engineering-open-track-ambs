@@ -164,7 +164,7 @@ Decide what "greatest" means to you by weighting 15 rows: 9 career stats and 6 a
   * **Career:** the actual figure from the data.
   * **Normalized:** the career figure scored 0 to 100 against the best of the three players.
   * **Weighted Score:** the normalized score multiplied by the row's share of the total weight.
-* **GOAT ranking and total:** each player's card at the top shows their rank and Total Weighted Score (the sum of their weighted scores), and the table repeats the totals at the bottom.
+* **GOAT ranking and total:** a scorecard above each player's three columns shows their rank and Total Weighted Score (the sum of their weighted scores), and the table repeats the totals at the bottom.
 * **Best-in-row highlight:** the best performer in each row has their Career, Normalized, and Weighted Score cells outlined in their player color (for turnovers, the lowest value wins).
 * **Built-in explanation:** a "How the weighted scores are normalized and calculated" panel under the table includes a worked example that updates with your sliders.
 * **No bonus for a longer career:** total points, total games, and seasons played are intentionally not used.
@@ -176,13 +176,15 @@ Decide what "greatest" means to you by weighting 15 rows: 9 career stats and 6 a
 3. Weighted score = `normalized score x share`.
 4. Total Weighted Score = the sum of a player's weighted scores. The highest total is GOAT #1.
 
-**Player headshots (optional)**
+**Player headshots (optional, off by default)**
 
-The calculator shows each player's initials by default. To add photos, save images you have the right to use in `notebooks/assets/headshots/` using these file names (`.png`, `.jpg`, `.jpeg`, or `.webp`), then re-run the notebook:
+The scorecards at the top of the calculator show each player's GOAT rank and Total Weighted Score, aligned above that player's three columns. To add a picture above them, set `SHOW_HEADSHOTS = True` in the notebook's config cell, save images you have the right to use in `notebooks/assets/headshots/` using these file names (`.png`, `.jpg`, `.jpeg`, or `.webp`), then re-run the notebook:
 
 * `michael_jordan.jpg`
 * `kobe_bryant.jpg`
 * `lebron_james.jpg`
+
+A player without an image shows their initials. Images are shown without a frame, so use pictures with a transparent background or a background that matches the calculator's card color (`#121A2B`) for a seamless look. Set `HEADSHOT_STYLE = "circle"` for round, ringed photos instead.
 
 **Customizing the calculator**
 
