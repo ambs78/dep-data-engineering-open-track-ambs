@@ -116,3 +116,31 @@ This will be the data that will be used in creating the Main GOAT Dashboard and 
 ```bash
 python scripts/transform.py
 ```
+
+Interactive GOAT Dashboard (Jupyter Notebook)
+`notebooks/nba\_goat\_dashboard.ipynb` turns the processed files in `data/processed/` into a dark-mode, NBA-themed dashboard comparing Michael Jordan, Kobe Bryant and LeBron James.
+Part 1 · GOAT Calculator
+Two levels of weight sliders, both on a 1–10 scale: 13 category sliders plus a slider for each of the 35 individual stats. Everything updates live as you drag, and a readout shows each slider's real share of the final score
+13 weighted categories and 8 presets (plus a "Custom" state when you move a slider): 10 from the game logs (Scoring, Efficiency, Playmaking, Rebounding, Defense, Ball Security, Winning, Durability, Peak, Consistency) plus 3 from an accolades table (Championships, Individual Awards, Honors)
+Career-volume totals (total points, total games, seasons played) are not scored, so the longest career gets no automatic edge; All-Star/All-NBA/All-Defensive selections are scored per season played
+Live GOAT score podium, weighted-contribution breakdown, trophy case, radar chart and category-winner heatmap
+Weight sweep: pick any category or individual stat and see how the GOAT scores (and the #1 spot) change as its weight goes 1 → 10
+10,000-scenario Monte Carlo robustness check that uses your current stat-level weights
+Part 2 · Career Trend Analysis & Insights
+Trend explorer (15 metrics), core-metric small multiples, season-by-season z-score heatmap
+Cumulative career curves with milestones, efficiency-vs-volume scatter (animatable), shot-profile shift, aging curve, durability/win%/playoff view, single-game career highs
+Title (▲) and MVP (○) seasons marked on the trend explorer
+9 insight cards generated from the data (peak seasons, biggest swings, prime length, efficiency trajectory, shot-profile shift, durability, winning, playmaking/rebounding, title seasons vs the rest)
+Run it
+```bash
+# from the repo root, with the .venv from Step 2 activated
+pip install -r requirements.txt
+jupyter lab notebooks/nba\_goat\_dashboard.ipynb      # then: Run > Run All Cells
+```
+The notebook looks for the game-log CSVs in `../data/processed` and the accolades CSV in `../data/external`, so run it from the `notebooks/` folder (the default when opened from JupyterLab or VS Code).
+> \*\*Viewing note:\*\* GitHub does not render ipywidgets or Plotly JavaScript. Interactivity works in JupyterLab, Jupyter Notebook 7, VS Code and Codespaces. The last notebook cell exports PNG snapshots to `notebooks/assets/` (needs `kaleido` + Chrome).
+Methodology & limitations
+Stats combine regular season and playoffs; per-season points are derived as `2·FGM + 3PM + FTM` and reconciled with the career `PTS\_AVE`.
+Scores are scaled 0–100 against the best of the three players for each sub-metric, so results are relative, not absolute.
+Championships, awards and honours are not in the game-log CSVs. They come from `data/external/player\_accolades.csv` (compiled 5 Nov 2026 from NBA.com, ESPN and Wikipedia/Basketball-Reference-based lists; the same values are embedded in the notebook as a fallback). Edit that CSV to correct or extend them.
+Advanced metrics (PER, WS, BPM) and ages are not in the data and were not added.
