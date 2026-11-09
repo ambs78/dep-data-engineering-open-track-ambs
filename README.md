@@ -117,30 +117,60 @@ This will be the data that will be used in creating the Main GOAT Dashboard and 
 python scripts/transform.py
 ```
 
-Interactive GOAT Dashboard (Jupyter Notebook)
-`notebooks/nba\_goat\_dashboard.ipynb` turns the processed files in `data/processed/` into a dark-mode, NBA-themed dashboard comparing Michael Jordan, Kobe Bryant and LeBron James.
-Part 1 · GOAT Calculator
-Two levels of weight sliders, both on a 1–10 scale: 13 category sliders plus a slider for each of the 35 individual stats. Everything updates live as you drag, and a readout shows each slider's real share of the final score
-13 weighted categories and 8 presets (plus a "Custom" state when you move a slider): 10 from the game logs (Scoring, Efficiency, Playmaking, Rebounding, Defense, Ball Security, Winning, Durability, Peak, Consistency) plus 3 from an accolades table (Championships, Individual Awards, Honors)
-Career-volume totals (total points, total games, seasons played) are not scored, so the longest career gets no automatic edge; All-Star/All-NBA/All-Defensive selections are scored per season played
-Live GOAT score podium, weighted-contribution breakdown, trophy case, radar chart and category-winner heatmap
-Weight sweep: pick any category or individual stat and see how the GOAT scores (and the #1 spot) change as its weight goes 1 → 10
-10,000-scenario Monte Carlo robustness check that uses your current stat-level weights
-Part 2 · Career Trend Analysis & Insights
-Trend explorer (15 metrics), core-metric small multiples, season-by-season z-score heatmap
-Cumulative career curves with milestones, efficiency-vs-volume scatter (animatable), shot-profile shift, aging curve, durability/win%/playoff view, single-game career highs
-Title (▲) and MVP (○) seasons marked on the trend explorer
-9 insight cards generated from the data (peak seasons, biggest swings, prime length, efficiency trajectory, shot-profile shift, durability, winning, playmaking/rebounding, title seasons vs the rest)
-Run it
+### Step 7: Launch the Interactive GOAT Dashboard
+
+Open the dashboard notebook, `notebooks/nba_goat_dashboard.ipynb`, which reads the processed files created in Step 6 (plus the accolades table described below). Make sure the virtual environment from Step 2 is activated, then start JupyterLab from the repository root:
+
 ```bash
-# from the repo root, with the .venv from Step 2 activated
-pip install -r requirements.txt
-jupyter lab notebooks/nba\_goat\_dashboard.ipynb      # then: Run > Run All Cells
+jupyter lab notebooks/nba_goat_dashboard.ipynb
 ```
-The notebook looks for the game-log CSVs in `../data/processed` and the accolades CSV in `../data/external`, so run it from the `notebooks/` folder (the default when opened from JupyterLab or VS Code).
-> \*\*Viewing note:\*\* GitHub does not render ipywidgets or Plotly JavaScript. Interactivity works in JupyterLab, Jupyter Notebook 7, VS Code and Codespaces. The last notebook cell exports PNG snapshots to `notebooks/assets/` (needs `kaleido` + Chrome).
-Methodology & limitations
-Stats combine regular season and playoffs; per-season points are derived as `2·FGM + 3PM + FTM` and reconciled with the career `PTS\_AVE`.
-Scores are scaled 0–100 against the best of the three players for each sub-metric, so results are relative, not absolute.
-Championships, awards and honours are not in the game-log CSVs. They come from `data/external/player\_accolades.csv` (compiled 5 Nov 2026 from NBA.com, ESPN and Wikipedia/Basketball-Reference-based lists; the same values are embedded in the notebook as a fallback). Edit that CSV to correct or extend them.
-Advanced metrics (PER, WS, BPM) and ages are not in the data and were not added.
+
+In JupyterLab, choose **Run > Run All Cells**. The dashboard appears in the cell outputs, and the sliders and charts update live as you interact with them.
+
+* The notebook looks for the game-log CSVs in `../data/processed` and the accolades CSV in `../data/external`, so it works whether you open it from the `notebooks/` folder or from the repository root.
+* All required packages (`plotly`, `ipywidgets`, `anywidget`, `jupyterlab`) are already included in `requirements.txt` from Step 3. If you see an `anywidget not found` message, run `pip install anywidget` and restart the kernel. The dashboard still works without it, but the charts redraw more slowly.
+* The pinned `pandas==3.0.3` and `numpy==2.5.1` require a recent Python version. The notebook was tested with Python 3.12.
+* GitHub cannot render ipywidgets or Plotly JavaScript, so the sliders only work in JupyterLab, Jupyter Notebook 7, VS Code, or GitHub Codespaces. The last notebook cell optionally exports PNG snapshots to `notebooks/assets/` (requires `kaleido` and Chrome).
+
+---
+
+## Interactive GOAT Dashboard (Jupyter Notebook)
+
+The notebook turns the processed data in `data/processed/` into a dark-mode, NBA-themed dashboard comparing **Michael Jordan**, **Kobe Bryant**, and **LeBron James**. It has two main parts.
+
+### Part 1: GOAT Calculator
+
+* **Two levels of weight sliders (1 to 10):** 13 category sliders, plus a slider for each of the 35 individual stats inside those categories. Everything recalculates live as you drag, and a readout beside each slider shows its real share of the final score.
+* **13 weighted categories:** 10 are built from the game logs (Scoring, Efficiency, Playmaking, Rebounding, Defense, Ball Security, Winning, Durability, Peak, Consistency) and 3 from the accolades table (Championships, Individual Awards, Honors).
+* **8 presets:** Balanced, Pure Scorer, Winner, Trophy Case, Iron Man, Efficiency Nerd, Two-Way Player, and Peak Performance. Moving any slider switches the preset to a "Custom" state.
+* **No bonus for a longer career:** total points, total games, and seasons played are intentionally not scored, and All-Star / All-NBA / All-Defensive selections are scored per season played.
+* **Live outputs:** GOAT score podium with a written verdict, weighted-contribution breakdown, trophy case, radar chart, and category-winner heatmap.
+* **Weight sweep:** pick any category or individual stat and see how each player's score (and the #1 spot) changes as its weight moves from 1 to 10.
+* **Robustness check:** a 10,000-scenario Monte Carlo simulation using random category weights and your current stat-level weights.
+
+### Part 2: Career Trend Analysis & Insights
+
+* **Trend explorer:** 15 metrics compared side-by-side across career seasons, with an option to switch between career year and calendar season on the X-axis, plus a 3-season rolling average.
+* **Core metrics and heatmap:** small multiples for six key stats and a season-by-season z-score heatmap for each player.
+* **Career curves:** cumulative points, games, and field goals with milestone markers, an efficiency-vs-volume scatter plot (animatable by career year), shot-profile evolution, an aging curve, durability / win % / playoff view, and single-game career highs.
+* **Title and MVP seasons:** marked on the trend explorer with a triangle (title) and a circle (MVP).
+* **9 insight cards:** generated directly from the data (peak seasons, biggest swings, prime length, efficiency trajectory, shot-profile shift, durability, winning, playmaking and rebounding, title seasons vs the rest).
+
+### Accolades Data (External)
+
+Championships, awards, and honors are not available in the game-log data, so they are stored in a separate, editable table:
+
+* **File:** `data/external/player_accolades.csv`
+* **Compiled:** 5 Nov 2026, from NBA.com, ESPN, and Wikipedia / Basketball-Reference-based career achievement lists.
+* **Fallback:** the same values are embedded in the notebook, but the CSV takes priority if it exists. Edit the CSV to correct or extend any number, then re-run the notebook.
+* **Validation:** the notebook checks the table when it loads (for example, that title seasons match the title count).
+
+---
+
+## Methodology & Limitations
+
+* **Combined stats:** statistics combine regular season and playoffs. Per-season points are derived as `2·FGM + 3PM + FTM` and reconciled with the career `PTS_AVE`.
+* **Scoring model:** each stat is scaled 0 to 100 against the best of the three players, so results are relative, not absolute. Stats are averaged into category scores using your stat weights, and category scores are combined using your category weights.
+* **Accolades are external:** counts come from the compiled table above, not from the game-log CSVs, and voting rules and eligibility have changed over time (for example, LeBron's 2026 All-NBA streak ended under the 65-game minimum).
+* **Not included:** advanced metrics (PER, WS, BPM) and player ages are not in the data and were not added.
+* **Small sample:** with only three players, every ranking is relative, and the GOAT score is a model of your own priorities rather than an objective truth.
